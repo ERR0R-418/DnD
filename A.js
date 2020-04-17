@@ -1,0 +1,1 @@
+let myFile = require('./main.json');
