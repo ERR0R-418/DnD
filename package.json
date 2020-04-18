@@ -1,0 +1,19 @@
+{
+  "name": "dnd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "A.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ERR0R-418/DnD.git"
+  },
+  "author": "ERROR-418, VaskillerDev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ERR0R-418/DnD/issues"
+  },
+  "homepage": "https://github.com/ERR0R-418/DnD#readme"
+}
