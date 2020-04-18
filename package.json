@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/ERR0R-418/DnD/issues"
   },
-  "homepage": "https://github.com/ERR0R-418/DnD#readme"
+  "homepage": "https://github.com/ERR0R-418/DnD#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "sqlite3": "^4.1.1"
+  }
 }
