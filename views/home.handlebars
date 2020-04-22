@@ -1,1 +1,13 @@
 <h1>dasdasdas</h1>
+<div>
+    {{#each questions as |question|}}
+        <h4>{{question.title}}</h4>
+        {{#each question.answers as |answer|}}
+            <br/>
+            <label>
+                <input type="radio">
+                {{answer}}
+            </label>
+        {{/each}}
+    {{/each}}
+</div>
