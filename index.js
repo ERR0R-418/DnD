@@ -24,6 +24,14 @@ const getDataStorage = (fileName) => {
 
 const dataStorage = {question: getDataStorage("dataStorage.json")}
 
+/* get all answer-group
+let acc = new Set();
+let a = dataStorage.question.forEach((e)=>{
+  acc.add(e['answer-group'])
+}
+console.log(acc)
+)*/
+
 app.use(express.static('public'))
 
 app.use('/get_answers',(req,res)=>{

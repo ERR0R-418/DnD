@@ -4,9 +4,18 @@
     let memoryCache = new Map();
 
     window.onload = ()=>{
-        console.log("!!")
-    };
+        let forms = document.getElementById("rootQuestion").getElementsByTagName("form");
+        for (let [key,form] of Object.entries(forms)) {
+            let title = form.children[0].textContent;
 
+            let elements = form.elements;
+            for (let [key,value] of Object.entries(elements)) {
+                if (value.checked === true) {
+                    memoryCache.set(title,key);
+                }
+            }
+        }
+    };
 
     let onClickRadio = (elem) => {
         let form = elem.parentElement.parentElement;
@@ -19,7 +28,6 @@
                 memoryCache.set(title,key);
             }
         }
-        console.log(memoryCache)
     }
 </script>
 
@@ -44,3 +52,5 @@
 
     {{/each}}
 </div>
+
+<button style="position: fixed; top: 90%;right: 10%; background-color: #a02342;color: whitesmoke"> Ok </button>
