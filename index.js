@@ -24,8 +24,16 @@ const getDataStorage = (fileName) => {
 
 const dataStorage = {question: getDataStorage("dataStorage.json")}
 
-app.get('/', function(req, res) {
+app.use(express.static('public'))
+
+app.use('/get_answers',(req,res)=>{
+  res.send(dataStorage)
+})
+
+app.use('/', function(req, res) {
   res.render('home',{questions: dataStorage.question});
 });
+
+
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
