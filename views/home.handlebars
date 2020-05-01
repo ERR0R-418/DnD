@@ -29,6 +29,10 @@
             }
         }
     }
+
+    let sendData = (elem) => {
+        console.log("!");
+    }
 </script>
 
 <div id="rootQuestion">
@@ -53,4 +57,4 @@
     {{/each}}
 </div>
 
-<button style="position: fixed; top: 90%;right: 10%; background-color: #a02342;color: whitesmoke"> Ok </button>
+<button style="position: fixed; top: 90%;right: 10%; background-color: #a02342;color: whitesmoke" onclick="sendData(this)"> Ok </button>
