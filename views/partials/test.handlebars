@@ -1,0 +1,77 @@
+
+<script>
+    // calculate and collect all points from answers in form
+    const collectPoint = () => {
+        /// mutable structure where key is type, value - sum points
+        let result = new Map();
+        /// initial for result. Get all forms in array,
+        /// then get all types from forms in Set cuz this initial key for memoryCache with 0 value
+        /// then collect all radio.checked = true as sum
+
+        //  all <form> as array collection
+        let forms = Array.from(document.getElementById("rootQuestion").getElementsByTagName("form"));
+        //  get all exists types from forms
+        let specialReducer = (set,form) => {
+            set.add(form.getAttribute("type"))
+            return set;
+        }
+        let types = forms.reduce(specialReducer,new Set());
+        //  init memoryCache with 0 value
+        types.forEach(type=>result.set(type,0));
+        //  collect all radio.checked=true from forms
+        forms.forEach(form=>{
+            let type = form.getAttribute("type");
+            let currentTypeValue = result.get(type);
+            let additionalTypeValue = Array.from(form).find(radio=>radio.checked===true)?.getAttribute("point") || 0;
+            let sum = parseInt(currentTypeValue)+parseInt(additionalTypeValue);
+            //  set checked radio
+            result.set(type,sum);
+        });
+
+        return result;
+    }
+    // send result to server
+    let sendData = () => {
+       let result = JSON.stringify([...collectPoint()]);
+        fetch('/send',{method: "post",headers:{'Content-Type':"application/json"},body: result})
+                .then(e=>e.text())
+                .then(e=> {
+                    document.getElementsByTagName("body")[0].remove()
+                    document.documentElement.innerHTML = e;
+                });
+               /* .then(result=>result.json())
+                .then(json=>{
+                    Array.from(json).forEach(e=>{
+                        sessionStorage.setItem(e[0],`${e[1].name}|${e[1].desc}`);
+                    });
+                }).then(window.location.href = "/result");*/
+
+    }
+</script>
+
+<div id="rootQuestion">
+    {{#each questions as |question|}}
+
+        <form style=
+                      "background-color: whitesmoke;
+        padding: 10px;
+  box-shadow:
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+        border-radius: 20px;"  type={{question.answer-group}}>
+            <h4>{{question.title}}</h4>
+            {{#each question.answers as | answer|}}
+                <label>
+                    <input type="radio"
+                           name="{{question.title}}"
+                           onclick="onClickRadio(this)"
+                           point="{{lookup ../answer-point @index}}">
+                    {{answer}}
+                </label>
+            {{/each}}
+        </form>
+
+    {{/each}}
+</div>
+
+<button style="position: fixed; top: 90%;right: 10%; background-color: #a02342;color: whitesmoke;box-shadow: 0 0 10px gray;border-radius: 15px" onclick="sendData(this)"> Ok </button>

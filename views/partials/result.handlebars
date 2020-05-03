@@ -1,0 +1,14 @@
+<div style="text-align: center">
+<h3> <bold>Результат:</bold></h3>
+    <div style="text-align: left">
+{{#each result}}
+    <div style="display: flex">
+        <p style="font-weight: bold">{{this.[0]}}: </p>
+        <p style="margin-left: 5px">{{this.[1].name}}</p>
+    </div>
+    <p>{{this.[1].desc}}</p>
+    <div style="border-top: 1px solid #bbb;
+  border-radius: 1px;"></div>
+    {{/each}}
+    </div>
+</div>
