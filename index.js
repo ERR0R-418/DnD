@@ -1,17 +1,17 @@
-const DataFromDatabase = require ("./src/DataFromDatabase");
+"use strict"
+const detectType = require ("./src/ResultRepository");
 const expressHandlebars = require('express-handlebars')
 const express = require('express')
+require('body-parser');
 const fs = require('fs')
-const bodyParser = require('body-parser')
+
 const app = express()
 const port = 3000
-const urlParser = bodyParser.urlencoded({ extended: false })
 
 app.engine('handlebars', expressHandlebars())
 app.set('view engine', 'handlebars')
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 
 const getDataStorage = (fileName) => {
     // read file
@@ -28,25 +28,34 @@ const getDataStorage = (fileName) => {
 }
 
 const dataStorage = { question: getDataStorage('dataStorage.json') }
-
-const dataFromDatabase = DataFromDatabase();
-
+// routes
 app.use(express.static('public'))
 
-app.use('/send',(req,res)=>{
-    //console.log(req.body);
-    console.l
-    res.status(200).end();
+app.use('/get_answers', (req, res) => {
+
+    res.set('Content-Type','application/json').send(dataStorage)
 })
 
-app.use('/get_answers', (req, res) => {
-    res.send(dataStorage)
-})
+app.post('/send',(req,res)=>{
+
+    const result = Array.from(req.body)
+            .reduce((acc,e)=>{
+                acc.push(
+                    Array.from(
+                        detectType(e[0],e[1])
+                    )
+                ); return acc;
+            },[]).flat();
+    console.log(result);
+
+    res.render('home', {result: result});
+
+});
 
 app.use('/', function (req, res) {
     res.render('home', { questions: dataStorage.question })
 })
-
+// listen
 app.listen(port, () =>
     console.log(`Example app listening at http://localhost:${port}`)
 )
