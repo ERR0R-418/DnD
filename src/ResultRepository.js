@@ -32,10 +32,10 @@ let getSpecFromDB = (table) => db.prepare(`select * from ${table}`).all() || nul
 
 let tableToColumn = (table) => {
     switch (table) {
-       case'Классы': return 'Класс';
+       case'Класс': return 'Класс';
        case 'Мораль': return 'Мировоззрение';
-       case 'Расы': return 'Раса';
-       case 'Способности': return 'Название характеристики';
+       case 'Расса': return 'Расcа';
+       case 'Способность': return 'Название характеристики';
        default: throw new URIError('Table not found');
     }
 }
