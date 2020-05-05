@@ -34,7 +34,7 @@ let tableToColumn = (table) => {
     switch (table) {
        case'Класс': return 'Класс';
        case 'Мораль': return 'Мировоззрение';
-       case 'Раса': return 'Раcа';
+       case 'Раса': return 'Раса';
        case 'Способность': return 'Название характеристики';
        default: throw new URIError('Table not found');
     }
